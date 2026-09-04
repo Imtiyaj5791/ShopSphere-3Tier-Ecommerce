@@ -9,11 +9,11 @@ app.use(cors());
 app.use(express.json());
 
 const pool = new Pool({
-  host: "localhost",
-  port: 5432,
-  database: "shopzone",
-  user: "shopzone_user",
-  password: "shopzone123"
+  host: process.env.DB_HOST || "localhost",
+  port: process.env.DB_PORT || 5432,
+  database: process.env.DB_NAME || "shopzone",
+  user: process.env.DB_USER || "shopzone_user",
+  password: process.env.DB_PASSWORD || "shopzone123",
 });
 
 const products = [

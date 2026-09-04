@@ -1,0 +1,52 @@
+services:
+
+  db:
+    image: postgres:16-alpine
+    container_name: shopzone-db
+    environment:
+      POSTGRES_DB: shopzone
+      POSTGRES_USER: shopzone_user
+      POSTGRES_PASSWORD: shopzone123
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - shopzone-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U shopzone_user -d shopzone"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    image: shopzone-backend:latest
+    container_name: shopzone-backend
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: shopzone
+      DB_USER: shopzone_user
+      DB_PASSWORD: shopzone123
+    ports:
+      - "5000:5000"
+    networks:
+      - shopzone-network
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    image: shopsphere-frontend:latest
+    container_name: shopsphere-frontend
+    ports:
+      - "80:80"
+    networks:
+      - shopzone-network
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
+
+networks:
+  shopzone-network:
+    driver: bridge
