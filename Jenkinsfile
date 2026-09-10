@@ -28,9 +28,9 @@ pipeline {
             }
         }
 
-        stage {
+        stage ('Docker build') {
 
-          steps('Docker build') {
+          steps {
 
              sh 'docker build -t shopzone-backend:latest ./backend'
              sh 'docker build -t shopsphere-frontend:latest ./frontend'
