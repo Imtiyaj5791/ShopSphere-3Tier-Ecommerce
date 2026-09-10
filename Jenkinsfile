@@ -27,5 +27,16 @@ pipeline {
                 }
             }
         }
+
+        stage {
+
+          steps('Docker build') {
+
+             sh 'docker build -t shopzone-backend:latest ./backend'
+             sh 'docker build -t shopsphere-frontend:latest ./frontend'
+        
+          }
+            
+        }
     }
 }
