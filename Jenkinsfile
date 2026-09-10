@@ -38,5 +38,15 @@ pipeline {
           }
             
         }
+
+        stage('Trivy Scan') {
+            steps {
+                 echo 'Scanning backend Docker image'
+                  sh 'trivy image shopzone-backend:latest'
+
+                 echo 'Scanning frontend Docker image'
+                 sh 'trivy image shopsphere-frontend:latest'
+    }
+}
     }
 }
