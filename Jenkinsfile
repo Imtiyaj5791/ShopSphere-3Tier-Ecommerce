@@ -1,51 +1,34 @@
-pipeline {
+pipeline{
 
     agent any
 
     stages {
 
-       stage ('checkout') {
+        stage('Git Checkout') {
 
-         steps {
+            steps {
 
-            checkout scm
-         }
+                checkout scm
+            }
+        }
+
         stage('Building') {
 
             steps {
 
-            sh 'cd frontend && npm install && npm run build'
-
+                sh 'cd frontend && npm install && npm run build'
             }
+        }
 
-        stage ('Sonarqube') {
+        stage('SonarQube') {
 
             steps {
-                withSonarQubeEnv('SonarQube') {
 
-             sh 'sonar-scanner'
+                withSonarQubeEnv ('SonarQube') {
 
-               }
+                sh 'sonar-scanner'
             }
-
-}
-
-
-}
-
-
-       }
-
-
-
-
+            }
+        }
     }
-
-
-
-
-
-
-
-
 }
