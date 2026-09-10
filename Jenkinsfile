@@ -4,7 +4,7 @@ pipeline {
 
     stages {
 
-       stage ('Checkout') {
+       stage ('checkout') {
 
          steps {
 
