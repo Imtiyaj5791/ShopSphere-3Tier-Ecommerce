@@ -20,24 +20,25 @@ pipeline{
             }
         }
 
-         stage('SonarQube Analysis') {
-        steps {
-            script {
-                def scannerHome = tool 'SonarQube'
+        stage('SonarQube Analysis') {
+    steps {
+        script {
+            def scannerHome = tool 'SonarQube'
 
-                // "credentialsId" must exactly match the name from your image: 'sonarqube-token'
-                withCredentials([string(credentialsId: 'sonarqube-token', variable: 'SONAR_TOKEN')]) {
-                    withSonarQubeEnv('SonarQube') {
-                        sh "${scannerHome}/bin/sonar-scanner \
-                            -Dsonar.projectKey=shopsphere \
-                            -Dsonar.projectName=ShopSphere \
-                            -Dsonar.sources=frontend \
-                            -Dsonar.token=${SONAR_TOKEN}"
-                    }
+            withCredentials([string(credentialsId: 'sonarqube-token', variable: 'SONAR_TOKEN')]) {
+                withSonarQubeEnv('SonarQube') {
+                    sh "${scannerHome}/bin/sonar-scanner \
+                        -Dsonar.host.url=http://localhost:9000 \
+                        -Dsonar.token=${SONAR_TOKEN} \
+                        -Dsonar.projectKey=shopsphere \
+                        -Dsonar.projectName=ShopSphere \
+                        -Dsonar.sources=frontend"
                 }
             }
         }
     }
+}
+
 
 
 
