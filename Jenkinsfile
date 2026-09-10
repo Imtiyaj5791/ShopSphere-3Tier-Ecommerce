@@ -20,13 +20,13 @@ pipeline{
             }
         }
 
-        stage('SonarQube') {
+    stage('SonarQube') {
     steps {
         script {
             scannerHome = tool 'SonarQube'
         }
         withSonarQubeEnv('SonarQube') {
-            sh "${scannerHome}/bin/sonar-scanner"
+            sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=shopsphere"
         }
     }
 }
