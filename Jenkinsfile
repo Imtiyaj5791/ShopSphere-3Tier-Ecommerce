@@ -20,15 +20,17 @@ pipeline{
             }
         }
 
-    stage('SonarQube') {
-    steps {
-        script {
-            scannerHome = tool 'SonarQube'
-        }
-        withSonarQubeEnv('SonarQube') {
-            sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=shopsphere"
-        }
-    }
+stage('SonarQube') {
+steps {
+script {
+def scannerHome = tool 'SonarQube'
 }
+withSonarQubeEnv('SonarQube') {
+sh 'env | grep SONAR'
+sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=shopsphere"
+}
+}
+}
+
     }
 }
