@@ -20,24 +20,25 @@ pipeline{
             }
         }
 
-      stage('SonarQube Analysis') {
-    steps {
-        script {
-            def scannerHome = tool 'SonarQube'
-            
-            // This manually injects the token as an environment variable
-            withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
-                withSonarQubeEnv('SonarQube') {
-                    sh "${scannerHome}/bin/sonar-scanner \
-                        -Dsonar.projectKey=shopsphere \
-                        -Dsonar.projectName=ShopSphere \
-                        -Dsonar.sources=. \
-                        -Dsonar.token=${SONAR_TOKEN}"
+         stage('SonarQube Analysis') {
+        steps {
+            script {
+                def scannerHome = tool 'SonarQube'
+
+                // "credentialsId" must exactly match the name from your image: 'sonarqube-token'
+                withCredentials([string(credentialsId: 'sonarqube-token', variable: 'SONAR_TOKEN')]) {
+                    withSonarQubeEnv('SonarQube') {
+                        sh "${scannerHome}/bin/sonar-scanner \
+                            -Dsonar.projectKey=shopsphere \
+                            -Dsonar.projectName=ShopSphere \
+                            -Dsonar.sources=frontend \
+                            -Dsonar.token=${SONAR_TOKEN}"
+                    }
                 }
             }
         }
     }
-}
+
 
 
 
