@@ -92,5 +92,11 @@ stage ('Docker build') {
 
   }
 }
+
+    stage('Smoke Test') {
+    steps {
+        sh 'kubectl run smoke-test --rm -i --restart=Never --image=curlimages/curl -- curl -f http://frontend'
+    }
+}
     }
 }
