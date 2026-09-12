@@ -17,8 +17,8 @@ spec:
     spec:
       containers:
         - name: backend
-          image: shopzone-backend:latest
-          imagePullPolicy: IfNotPresent
+          image: image: 008826676494.dkr.ecr.ap-south-1.amazonaws.com/shopzone-backend:latest
+          imagePullPolicy: Always
 
           ports:
             - containerPort: 5000
