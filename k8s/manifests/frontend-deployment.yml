@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: image: 008826676494.dkr.ecr.ap-south-1.amazonaws.com/shopsphere-frontend:latest
+          image: 008826676494.dkr.ecr.ap-south-1.amazonaws.com/shopsphere-frontend:latest
           imagePullPolicy: Always
 
           ports:
