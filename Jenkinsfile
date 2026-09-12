@@ -98,5 +98,24 @@ stage ('Docker build') {
         sh 'kubectl run smoke-test --rm -i --restart=Never --image=curlimages/curl -- curl -f http://frontend'
     }
 }
+}
+
+    post {
+    success {
+        emailext(
+            subject: "ShopSphere Pipeline SUCCESS - ${env.BUILD_NUMBER}",
+            body: "ShopSphere pipeline completed successfully.\n\nBuild: ${env.BUILD_NUMBER}\nJob: ${env.JOB_NAME}",
+            to: "imti.ansari007@gmail.com"
+        )
+    }
+
+    failure {
+        emailext(
+            subject: "ShopSphere Pipeline FAILED - ${env.BUILD_NUMBER}",
+            body: "ShopSphere pipeline failed.\n\nBuild: ${env.BUILD_NUMBER}\nJob: ${env.JOB_NAME}",
+            to: "imti.ansari007@gmail.com"
+        )
     }
 }
+    }
+
