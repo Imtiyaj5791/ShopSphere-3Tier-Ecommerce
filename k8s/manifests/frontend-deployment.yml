@@ -15,6 +15,9 @@ spec:
         app: frontend
 
     spec:
+      imagePullSecrets:
+        - name: ecr-secret
+
       containers:
         - name: frontend
           image: 008826676494.dkr.ecr.ap-south-1.amazonaws.com/shopsphere-frontend:latest
